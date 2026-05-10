@@ -1,3 +1,18 @@
-./backend/node_modules
-./frontend/node_modules
-./pi
+# Ignore node_modules
+frontend/node_modules/
+backend/node_modules/
+node_modules/
+
+# Ignore env files
+.env
+.env.*
+
+# Ignore VS Code and editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
