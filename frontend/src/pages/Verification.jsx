@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ShieldAlert, ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
+import { SERVER_URL } from '../config';
 
 export default function Verification({ appState, cartId }) {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ export default function Verification({ appState, cartId }) {
 
   const handleStartRandom = async () => {
     try {
-      await fetch('http://localhost:5000/api/verify/random/start', { 
+      await fetch(`${SERVER_URL}/api/verify/random/start`, { 
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

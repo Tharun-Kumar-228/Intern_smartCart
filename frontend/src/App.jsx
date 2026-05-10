@@ -12,7 +12,8 @@ import Login from './pages/Login';
 import Simulator from './pages/Simulator';
 import KioskLogin from './pages/KioskLogin';
 
-const socket = io('http://localhost:5000');
+const SERVER_URL = 'https://internsmartcart-production.up.railway.app';
+const socket = io(SERVER_URL);
 const ADMIN_PASSWORD = '9780201379624';
 
 const PrivateRoute = ({ children }) => {
@@ -54,7 +55,7 @@ const LockScreen = ({ onUnlock, onLogout, cartId, sessionKey }) => {
           // Scanned a product or something else. Unlock and add to cart!
           setMessage('Resuming cart...');
           try {
-            await fetch('http://localhost:5000/api/cart/scan', {
+            await fetch(`${SERVER_URL}/api/cart/scan`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -144,7 +145,7 @@ const KioskApp = () => {
 
         // Send the scan to the backend
         try {
-          await fetch(`http://localhost:5000/api/${endpoint}`, {
+          await fetch(`${SERVER_URL}/api/${endpoint}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -190,7 +191,7 @@ const KioskApp = () => {
     socket.on('navigate', handleNavigate);
     socket.on('scanError', handleScanError);
     
-    fetch(`http://localhost:5000/api/status?cartId=${cartId}`, {
+    fetch(`${SERVER_URL}/api/status?cartId=${cartId}`, {
       headers: { 'Authorization': `Bearer ${sessionKey}` }
     })
       .then(res => {
@@ -200,7 +201,7 @@ const KioskApp = () => {
       .then(data => setAppState(prev => ({...prev, ...data})))
       .catch(console.error);
       
-    fetch(`http://localhost:5000/api/cart?cartId=${cartId}`, {
+    fetch(`${SERVER_URL}/api/cart?cartId=${cartId}`, {
       headers: { 'Authorization': `Bearer ${sessionKey}` }
     })
       .then(res => {

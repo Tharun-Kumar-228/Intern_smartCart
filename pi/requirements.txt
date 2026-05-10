@@ -1,4 +1,17 @@
-RPi.GPIO
-hx711
-requests
-python-socketio[client]
+# Core networking
+requests>=2.31.0
+python-socketio[client]>=5.10.0
+
+# GPIO – Pi 5 compatible
+gpiozero>=2.0
+lgpio>=0.2.2.0
+
+# HX711 load cell
+hx711>=1.1.2.3
+
+# USB barcode scanner (evdev)
+evdev>=1.6.1
+
+# OLED display (optional – SSD1306 via I2C)
+luma.oled>=3.12.0
+Pillow>=10.0.0

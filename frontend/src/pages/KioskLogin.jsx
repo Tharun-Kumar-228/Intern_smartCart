@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { SERVER_URL } from '../config';
 
 export default function KioskLogin() {
   const [scannedCartId, setScannedCartId] = useState('');
@@ -29,7 +30,7 @@ export default function KioskLogin() {
             const passcode = scan;
             setStatus('Authenticating...');
             try {
-                const res = await fetch('http://localhost:5000/api/auth/cart-login', {
+                const res = await fetch(`${SERVER_URL}/api/auth/cart-login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ cartId: scannedCartId, passcode })
@@ -69,7 +70,7 @@ export default function KioskLogin() {
   const handleSimulatorLogin = async () => {
     setStatus('Authenticating simulator...');
     try {
-        const res = await fetch('http://localhost:5000/api/auth/cart-login', {
+        const res = await fetch(`${SERVER_URL}/api/auth/cart-login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ cartId: 'CART-SIM-01', passcode: '9780201379624' })

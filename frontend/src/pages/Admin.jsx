@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { SERVER_URL } from '../config';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function Admin() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/products'); // public endpoint
+      const res = await fetch(`${SERVER_URL}/api/products`); // public endpoint
       const data = await res.json();
       setProducts(data);
     } catch(e) { console.error(e); }
@@ -35,14 +36,14 @@ export default function Admin() {
     };
 
     if (editingId) {
-      await fetch(`http://localhost:5000/api/products/${editingId}`, {
+      await fetch(`${SERVER_URL}/api/products/${editingId}`, {
         method: 'PUT',
         headers: getHeaders(),
         body: JSON.stringify(payload)
       });
       setEditingId(null);
     } else {
-      await fetch('http://localhost:5000/api/products', {
+      await fetch(`${SERVER_URL}/api/products`, {
         method: 'POST',
         headers: getHeaders(),
         body: JSON.stringify(payload)
@@ -57,7 +58,7 @@ export default function Admin() {
       ...product,
       stock_quantity: product.stock_quantity + change
     };
-    await fetch(`http://localhost:5000/api/products/${product.id}`, {
+    await fetch(`${SERVER_URL}/api/products/${product.id}`, {
       method: 'PUT',
       headers: getHeaders(),
       body: JSON.stringify(payload)
@@ -82,7 +83,7 @@ export default function Admin() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/products/${id}`, { 
+    await fetch(`${SERVER_URL}/api/products/${id}`, { 
       method: 'DELETE',
       headers: getHeaders()
     });

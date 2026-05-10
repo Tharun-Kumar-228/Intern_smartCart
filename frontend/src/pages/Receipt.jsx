@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { CheckCircle } from 'lucide-react';
+import { SERVER_URL } from '../config';
 
 export default function Receipt({ cartId }) {
   const { billId } = useParams();
@@ -9,7 +10,7 @@ export default function Receipt({ cartId }) {
   const printed = useRef(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/status/bills/${billId}`)
+    fetch(`${SERVER_URL}/api/status/bills/${billId}`)
       .then(res => {
         if (!res.ok) throw new Error('Receipt not found');
         return res.json();
@@ -38,7 +39,7 @@ export default function Receipt({ cartId }) {
 
   const handleFinish = async () => {
     try {
-      await fetch('http://localhost:5000/api/cart/finish', { 
+      await fetch(`${SERVER_URL}/api/cart/finish`, { 
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

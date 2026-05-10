@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, RefreshCw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { SERVER_URL } from '../config';
 
 export default function Logs() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export default function Logs() {
   const fetchLogs = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/status/logs', {
+      const res = await fetch(`${SERVER_URL}/api/status/logs`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
         }

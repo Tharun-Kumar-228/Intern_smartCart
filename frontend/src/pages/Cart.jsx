@@ -1,13 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronUp, ChevronDown, Plus, Minus, Trash2, ArrowLeft } from 'lucide-react';
+import { SERVER_URL } from '../config';
 
 export default function Cart({ appState, cart, cartId }) {
   const navigate = useNavigate();
 
   const handleAction = async (action) => {
     try {
-      await fetch(`http://localhost:5000/api/cart/${action}`, { 
+      await fetch(`${SERVER_URL}/api/cart/${action}`, { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cart_id: cartId })

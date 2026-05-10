@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { SERVER_URL } from '../config';
 
 export default function Payment({ appState, cart, cartId }) {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function Payment({ appState, cart, cartId }) {
     setLoading(true);
     try {
       const sessionKey = localStorage.getItem('kioskSessionKey');
-      const orderRes = await fetch('http://localhost:5000/api/payment/create-order', {
+      const orderRes = await fetch(`${SERVER_URL}/api/payment/create-order`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -76,7 +77,7 @@ export default function Payment({ appState, cart, cartId }) {
   const handleVerify = async (order_id, payment_id, signature) => {
     try {
       const sessionKey = localStorage.getItem('kioskSessionKey');
-      const verifyRes = await fetch('http://localhost:5000/api/payment/verify', {
+      const verifyRes = await fetch(`${SERVER_URL}/api/payment/verify`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
